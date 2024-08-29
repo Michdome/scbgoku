@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Checker SCB|PHIL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="assets/common/css/scb.css" rel="stylesheet">
+    <link href="assets/common/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="./assets/img/scb.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="loadingScreen">
+        <img src="./assets/img/scb.png" alt="Logo" id="logo">
+        <div id="loadingBar"></div>
+    </div>
+    <div class="container" id="container">
+    
+      <img src="./assets/img/scb.png" class="bvlogo" title="SCB|PHIL Checker">
+      <textarea id="output" placeholder="Simple checker by AsianPro"></textarea>
+      <input type="text" id="card" placeholder="411111111111|12|2025|cvv">
+      <input type="text" id="count" placeholder="How many?" value="20">
+      <br>
+      <!-- PUT YOUR API NAME HERE add .php pls -->
+      <select id="gatewaySelect" class="styled-select" title="select gateway checker">
+    <option value="api.php" selected>Default Gateway</option>
+    <option value="cvv.php">CVV GATEWAY</option>
+    <option value="ccn.php">CCN GATEWAY</option>
+    <option value="lookup.php">B3 LOOKUP GATEWAY</option>
+    <option value="atc.php">ADD TO CART</option>
+      </select>
+      <div class="button-group">
+        <button id="start" style="color: green">START</button>
+        <button id="stop" style="color: red">STOP</button>
+        <button id="speed" style="color: yellow">SPEED</button>
+        <button id="generate" onclick="generateCards()" style="color: white">GENERATE</button>
+        <button id="extrap" style="color: blue">EXTRAP</button>
+      </div>
+      <div class="status">
+        <p> Live: <span id="liveCount">0</span> ║ Dead: <span id="deadCount">0</span> ║ Processed: <span id="cardProc">0</span> ║ Cards: <span id="cardCount">0</span> ║ Speed: <span id="sped">Slow</span> ║ Status: <span id="status">-</span>
+        </p>
+      </div>
+      <div id="speedModal" style="display: none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #121212; color: #88A1C7FF; padding: 20px; border: 1px solid #ffffff; text-align: center;">
+    <h4>Select Processing Speed</h4>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li>
+        <button onclick="setSpeed(0)" title="ALL CARDS WILL BE PROCESSED AT ONCE" style="width: 100%; margin-bottom: 10px;">No limit</button>
+      </li>
+      <li>
+        <button onclick="setSpeed(1000)" title="Normal checking of cards" style="width: 100%; margin-bottom: 10px;">Normal</button>
+      </li>
+      <li>
+        <button onclick="setSpeed(2500)" title="Good for slow API" style="width: 100%; margin-bottom: 10px;">Slow</button>
+      </li>
+      <li>
+        <button onclick="setSpeed('sequential')" title="check card 1 by 1" style="width: 100%; margin-bottom: 10px;">1 by 1</button>
+      </li>
+    </ul>
+  </div>
+      <div class="tab-group">
+        <span class="slive" onclick="showTab('live')">Live [<span id="liveCount2">0</span>] </span>
+        <span class="sdead" onclick="showTab('dead')">Dead [<span id="deadCount2">0</span>] </span>
+      </div>
+      <div id="live" class="tab-content">
+        <h4>Live</h4>
+        <span id=".live" class="live"></span>
+      </div>
+      <div id="dead" class="tab-content">
+        <h4>Dead</h4>
+        <span id=".dead" class="dead"></span>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="footer-copyright text-center py-3" style="width: 100%; padding-bottom: 10px; background-color: #121212; color: #88A1C7FF; text-align: center; position: fixed; bottom: 0;"><a href="https://t.me/Pauuuulz" style="color: #0DF922FF; text-decoration: none;" target="_blank">AsianProz</a> ║ <a href="https://scbphil.com" style="color: #0DF922FF; text-decoration: none;" target="_blank">SCB|PHIL™ 2024</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./assets/js/oscb.js" type="text/javascript"></script>
+  </body>
+</html>
